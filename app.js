@@ -30,6 +30,11 @@ io.sockets.on('connection', function (socket) {
   socket.on('message', function (data) {
      users[data.user].emit('message', myName + '-> ' + data.message); 
   });
+  
+  socket.on('disconnect', function () {
+    users[myName] = null;
+    io.sockets.emit('listing', getUsers());
+  });
 });
 
 app.listen(process.env.PORT);
