@@ -11,7 +11,9 @@ var userNumber = 1;
 function getUsers () {
    var userNames = [];
    for(var name in users) {
-     userNames.push(name);   
+     if(users[name]) {
+       userNames.push(name);  
+     }
    }
    return userNames;
 }
