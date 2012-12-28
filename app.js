@@ -1,7 +1,10 @@
 
 var express = require('express');
-var app = express.createServer();
-var io = require('socket.io').listen(app);
+var app = express();
+var server = require('http').createServer(app)
+var io = require('socket.io').listen(server);
+
+io.set('log level', 2);
 
 app.use(express.static(__dirname));
 
@@ -30,7 +33,8 @@ io.sockets.on('connection', function (socket) {
     io.sockets.emit('chat', myName + ': ' + message);
   });
   socket.on('message', function (data) {
-     users[data.user].emit('message', myName + '-> ' + data.message); 
+    users[data.user] &&
+      users[data.user].emit('message', myName + '-> ' + data.message); 
   });
   
   socket.on('disconnect', function () {
@@ -39,4 +43,5 @@ io.sockets.on('connection', function (socket) {
   });
 });
 
-app.listen(process.env.PORT);
+server.listen(process.env.PORT || 3000);
+console.log('listening on:', process.env.PORT || 3000);
