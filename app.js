@@ -32,6 +32,7 @@ io.sockets.on('connection', function (socket) {
   socket.on('chat', function (message) {
     io.sockets.emit('chat', myName + ': ' + message);
   });
+  
   socket.on('message', function (data) {
     users[data.user] &&
       users[data.user].emit('message', myName + '-> ' + data.message); 
