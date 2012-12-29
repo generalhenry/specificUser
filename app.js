@@ -32,7 +32,7 @@ io.sockets.on('connection', function (socket) {
   socket.on('chat', function (message) {
     io.sockets.emit('chat', myName + ': ' + message);
   });
-  
+
   socket.on('message', function (data) {
     users[data.user] &&
       users[data.user].emit('message', myName + '-> ' + data.message); 
@@ -44,5 +44,5 @@ io.sockets.on('connection', function (socket) {
   });
 });
 
-server.listen(process.env.PORT || 3000);
-console.log('listening on:', process.env.PORT || 3000);
+server.listen(process.env.PORT || 80);
+console.log('listening on:', process.env.PORT || 80);
